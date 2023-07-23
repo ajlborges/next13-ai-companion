@@ -8,17 +8,17 @@ const items = [
   {
     name: "Elon Musk",
     description: "CEO of Tesla & SpaceX",
-    image: "/elon5.png",
+    image: "/elon.png",
   },
   {
     name: "Steve Jobs",
     description: "Founder of Apple",
-    image: "/steve4.png",
+    image: "/steve.png",
   },
   {
     name: "Joe Biden",
     description: "President of the USA",
-    image: "/joe3.png",
+    image: "/joe.png",
   },
   {
     name: "Mark Zuckerberg",
@@ -61,9 +61,9 @@ export const Companions = () => {
   return (
     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2 pb-10">
       {items.map((item) => (
-        <Card key={item.name} className="bg-neutral-700 rounded-xl cursor-pointer hover:opacity-75 transition">
+        <Card key={item.name} className="bg-primary/10 rounded-xl cursor-pointer hover:opacity-75 transition border-0">
           <Link href="/chat/123">
-            <CardHeader className="flex items-center justify-center text-center text-neutral-300">
+            <CardHeader className="flex items-center justify-center text-center text-primary/75">
               <div className="relative w-32 h-32">
                 <Image
                   src={item.image}

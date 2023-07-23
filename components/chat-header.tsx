@@ -10,11 +10,11 @@ export const ChatHeader = () => {
   const router = useRouter();
 
   return (
-    <div className="flex w-full items-center gap-x-2 border-b border-neutral-700 pb-4">
-      <Button onClick={() => router.back()} size="icon" variant="secondary">
+    <div className="flex w-full items-center gap-x-2 border-b border-primary/10 pb-4">
+      <Button onClick={() => router.back()} size="icon" variant="ghost">
         <ChevronLeft className="h-8 w-8" />
       </Button>
-      <BotAvatar src="/elon5.png" />
+      <BotAvatar src="/elon.png" />
       <div className="flex flex-col gap-y-1">
         <div className="flex items-center gap-x-2">
           <p className="font-bold">Elon Musk</p>

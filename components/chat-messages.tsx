@@ -3,7 +3,7 @@ import { ChatMessage, ChatMessageProps } from "@/components/chat-message";
 const messages: ChatMessageProps[] = [
   {
     variant: "system",
-    src: "/elon5.png",
+    src: "/elon.png",
     content: "Hello, my name is Elon Musk. I am the founder and CEO of Tesla, SpaceX and many more companies."
   },
   {
@@ -12,7 +12,7 @@ const messages: ChatMessageProps[] = [
   },
   {
     variant: "system",
-    src: "/elon5.png",
+    src: "/elon.png",
     content: "Hello, my name is Elon Musk. I am the founder and CEO of Tesla, SpaceX and many more companies."
   },
   {
@@ -21,7 +21,7 @@ const messages: ChatMessageProps[] = [
   },
   {
     variant: "system",
-    src: "/elon5.png",
+    src: "/elon.png",
     content: "Hello, my name is Elon Musk. I am the founder and CEO of Tesla, SpaceX and many more companies."
   },
   {
@@ -30,7 +30,7 @@ const messages: ChatMessageProps[] = [
   },
   {
     variant: "system",
-    src: "/elon5.png",
+    src: "/elon.png",
     content: "Hello, my name is Elon Musk. I am the founder and CEO of Tesla, SpaceX and many more companies."
   },
   {
@@ -39,7 +39,7 @@ const messages: ChatMessageProps[] = [
   },
   {
     variant: "system",
-    src: "/elon5.png",
+    src: "/elon.png",
     content: "Hello, my name is Elon Musk. I am the founder and CEO of Tesla, SpaceX and many more companies."
   },
   {
@@ -48,7 +48,7 @@ const messages: ChatMessageProps[] = [
   },
   {
     variant: "system",
-    src: "/elon5.png",
+    src: "/elon.png",
     content: "Hello, my name is Elon Musk. I am the founder and CEO of Tesla, SpaceX and many more companies."
   },
   {
@@ -57,7 +57,7 @@ const messages: ChatMessageProps[] = [
   },
   {
     variant: "system",
-    src: "/elon5.png",
+    src: "/elon.png",
     content: "Hello, my name is Elon Musk. I am the founder and CEO of Tesla, SpaceX and many more companies."
   },
   {
@@ -66,7 +66,7 @@ const messages: ChatMessageProps[] = [
   },
   {
     variant: "system",
-    src: "/elon5.png",
+    src: "/elon.png",
     content: "Hello, my name is Elon Musk. I am the founder and CEO of Tesla, SpaceX and many more companies."
   },
   {
@@ -75,7 +75,7 @@ const messages: ChatMessageProps[] = [
   },
   {
     variant: "system",
-    src: "/elon5.png",
+    src: "/elon.png",
     content: "Hello, my name is Elon Musk. I am the founder and CEO of Tesla, SpaceX and many more companies."
   },
   {
@@ -84,7 +84,7 @@ const messages: ChatMessageProps[] = [
   },
   {
     variant: "system",
-    src: "/elon5.png",
+    src: "/elon.png",
     content: "Hello, my name is Elon Musk. I am the founder and CEO of Tesla, SpaceX and many more companies."
   },
   {
@@ -93,7 +93,7 @@ const messages: ChatMessageProps[] = [
   },
   {
     variant: "system",
-    src: "/elon5.png",
+    src: "/elon.png",
     content: "Hello, my name is Elon Musk. I am the founder and CEO of Tesla, SpaceX and many more companies."
   },
   {
@@ -102,7 +102,7 @@ const messages: ChatMessageProps[] = [
   },
   {
     variant: "system",
-    src: "/elon5.png",
+    src: "/elon.png",
     content: "Hello, my name is Elon Musk. I am the founder and CEO of Tesla, SpaceX and many more companies."
   },
   {
@@ -111,7 +111,7 @@ const messages: ChatMessageProps[] = [
   },
   {
     variant: "system",
-    src: "/elon5.png",
+    src: "/elon.png",
     content: "Hello, my name is Elon Musk. I am the founder and CEO of Tesla, SpaceX and many more companies."
   },
   {
@@ -120,7 +120,7 @@ const messages: ChatMessageProps[] = [
   },
   {
     variant: "system",
-    src: "/elon5.png",
+    src: "/elon.png",
     content: "Hello, my name is Elon Musk. I am the founder and CEO of Tesla, SpaceX and many more companies."
   },
   {
@@ -129,7 +129,7 @@ const messages: ChatMessageProps[] = [
   },
   {
     variant: "system",
-    src: "/elon5.png",
+    src: "/elon.png",
     content: "Hello, my name is Elon Musk. I am the founder and CEO of Tesla, SpaceX and many more companies."
   },
   {
@@ -138,7 +138,7 @@ const messages: ChatMessageProps[] = [
   },
   {
     variant: "system",
-    src: "/elon5.png",
+    src: "/elon.png",
     content: "Hello, my name is Elon Musk. I am the founder and CEO of Tesla, SpaceX and many more companies."
   },
   {
@@ -147,7 +147,7 @@ const messages: ChatMessageProps[] = [
   },
   {
     variant: "system",
-    src: "/elon5.png",
+    src: "/elon.png",
     content: "Hello, my name is Elon Musk. I am the founder and CEO of Tesla, SpaceX and many more companies."
   },
   {
@@ -156,7 +156,7 @@ const messages: ChatMessageProps[] = [
   },
   {
     variant: "system",
-    src: "/elon5.png",
+    src: "/elon.png",
     content: "Hello, my name is Elon Musk. I am the founder and CEO of Tesla, SpaceX and many more companies."
   },
   {
@@ -165,7 +165,7 @@ const messages: ChatMessageProps[] = [
   },
   {
     variant: "system",
-    src: "/elon5.png",
+    src: "/elon.png",
     content: "Hello, my name is Elon Musk. I am the founder and CEO of Tesla, SpaceX and many more companies."
   },
   {

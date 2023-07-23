@@ -5,12 +5,12 @@ import { Button } from "@/components/ui/button"
 
 export const ChatForm = () => {
   return (
-    <div className="border-t border-neutral-700 py-4 flex items-center gap-x-2">
+    <div className="border-t border-primary/10 py-4 flex items-center gap-x-2">
       <Input
         placeholder="Type a message"
-        className="rounded-lg bg-neutral-900/75"
+        className="rounded-lg bg-primary/10"
       />
-      <Button variant="secondary">
+      <Button variant="ghost">
         <SendHorizonal className="w-6 h-6" />
       </Button>
     </div>

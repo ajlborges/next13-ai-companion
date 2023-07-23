@@ -23,7 +23,7 @@ export const Sidebar = () => {
   const pathname = usePathname();
 
   return (
-    <div className="space-y-4 flex flex-col h-full bg-secondary text-white">
+    <div className="space-y-4 flex flex-col h-full text-primary">
       <div className="p-3 flex-1 flex justify-center">
         <div className="space-y-1">
           {routes.map((route) => (
@@ -31,8 +31,8 @@ export const Sidebar = () => {
               key={route.href}
               href={route.href}
               className={cn(
-                "text-xs group flex p-3 w-full justify-start font-medium cursor-pointer hover:text-white hover:bg-white/10 rounded-lg transition",
-                pathname === route.href ? "text-white bg-white/10" : "text-zinc-400",
+                "text-primary text-xs group flex p-3 w-full justify-start font-medium cursor-pointer hover:text-primary hover:bg-primary/10 rounded-lg transition",
+                pathname === route.href && "bg-primary/10",
               )}
             >
               <div className="flex flex-col gap-y-2 items-center flex-1">
