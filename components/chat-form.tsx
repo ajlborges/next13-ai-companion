@@ -1,18 +1,37 @@
-import { SendHorizonal } from "lucide-react"
+"use client";
 
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
+import { ChatRequestOptions } from "ai";
+import { SendHorizonal } from "lucide-react";
+import { ChangeEvent, FormEvent } from "react";
 
-export const ChatForm = () => {
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+
+interface ChatFormProps {
+  input: string;
+  handleInputChange: (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>) => void;
+  onSubmit: (e: FormEvent<HTMLFormElement>, chatRequestOptions?: ChatRequestOptions | undefined) => void;
+  isLoading: boolean;
+}
+
+export const ChatForm = ({
+  input,
+  handleInputChange,
+  onSubmit,
+  isLoading,
+}: ChatFormProps) => {
   return (
-    <div className="border-t border-primary/10 py-4 flex items-center gap-x-2">
+    <form onSubmit={onSubmit} className="border-t border-primary/10 py-4 flex items-center gap-x-2">
       <Input
+        disabled={isLoading}
+        value={input}
+        onChange={handleInputChange}
         placeholder="Type a message"
         className="rounded-lg bg-primary/10"
       />
-      <Button variant="ghost">
+      <Button disabled={isLoading} variant="ghost">
         <SendHorizonal className="w-6 h-6" />
       </Button>
-    </div>
+    </form>
   )
 }

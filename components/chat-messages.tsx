@@ -1,190 +1,32 @@
 import { ChatMessage, ChatMessageProps } from "@/components/chat-message";
 
-const messages: ChatMessageProps[] = [
-  {
-    variant: "system",
-    src: "/elon.png",
-    content: "Hello, my name is Elon Musk. I am the founder and CEO of Tesla, SpaceX and many more companies."
-  },
-  {
-    variant: "user",
-    content: "Hello Elon, how are you?"
-  },
-  {
-    variant: "system",
-    src: "/elon.png",
-    content: "Hello, my name is Elon Musk. I am the founder and CEO of Tesla, SpaceX and many more companies."
-  },
-  {
-    variant: "user",
-    content: "Hello Elon, how are you?"
-  },
-  {
-    variant: "system",
-    src: "/elon.png",
-    content: "Hello, my name is Elon Musk. I am the founder and CEO of Tesla, SpaceX and many more companies."
-  },
-  {
-    variant: "user",
-    content: "Hello Elon, how are you?"
-  },
-  {
-    variant: "system",
-    src: "/elon.png",
-    content: "Hello, my name is Elon Musk. I am the founder and CEO of Tesla, SpaceX and many more companies."
-  },
-  {
-    variant: "user",
-    content: "Hello Elon, how are you?"
-  },
-  {
-    variant: "system",
-    src: "/elon.png",
-    content: "Hello, my name is Elon Musk. I am the founder and CEO of Tesla, SpaceX and many more companies."
-  },
-  {
-    variant: "user",
-    content: "Hello Elon, how are you?"
-  },
-  {
-    variant: "system",
-    src: "/elon.png",
-    content: "Hello, my name is Elon Musk. I am the founder and CEO of Tesla, SpaceX and many more companies."
-  },
-  {
-    variant: "user",
-    content: "Hello Elon, how are you?"
-  },
-  {
-    variant: "system",
-    src: "/elon.png",
-    content: "Hello, my name is Elon Musk. I am the founder and CEO of Tesla, SpaceX and many more companies."
-  },
-  {
-    variant: "user",
-    content: "Hello Elon, how are you?"
-  },
-  {
-    variant: "system",
-    src: "/elon.png",
-    content: "Hello, my name is Elon Musk. I am the founder and CEO of Tesla, SpaceX and many more companies."
-  },
-  {
-    variant: "user",
-    content: "Hello Elon, how are you?"
-  },
-  {
-    variant: "system",
-    src: "/elon.png",
-    content: "Hello, my name is Elon Musk. I am the founder and CEO of Tesla, SpaceX and many more companies."
-  },
-  {
-    variant: "user",
-    content: "Hello Elon, how are you?"
-  },
-  {
-    variant: "system",
-    src: "/elon.png",
-    content: "Hello, my name is Elon Musk. I am the founder and CEO of Tesla, SpaceX and many more companies."
-  },
-  {
-    variant: "user",
-    content: "Hello Elon, how are you?"
-  },
-  {
-    variant: "system",
-    src: "/elon.png",
-    content: "Hello, my name is Elon Musk. I am the founder and CEO of Tesla, SpaceX and many more companies."
-  },
-  {
-    variant: "user",
-    content: "Hello Elon, how are you?"
-  },
-  {
-    variant: "system",
-    src: "/elon.png",
-    content: "Hello, my name is Elon Musk. I am the founder and CEO of Tesla, SpaceX and many more companies."
-  },
-  {
-    variant: "user",
-    content: "Hello Elon, how are you?"
-  },
-  {
-    variant: "system",
-    src: "/elon.png",
-    content: "Hello, my name is Elon Musk. I am the founder and CEO of Tesla, SpaceX and many more companies."
-  },
-  {
-    variant: "user",
-    content: "Hello Elon, how are you?"
-  },
-  {
-    variant: "system",
-    src: "/elon.png",
-    content: "Hello, my name is Elon Musk. I am the founder and CEO of Tesla, SpaceX and many more companies."
-  },
-  {
-    variant: "user",
-    content: "Hello Elon, how are you?"
-  },
-  {
-    variant: "system",
-    src: "/elon.png",
-    content: "Hello, my name is Elon Musk. I am the founder and CEO of Tesla, SpaceX and many more companies."
-  },
-  {
-    variant: "user",
-    content: "Hello Elon, how are you?"
-  },
-  {
-    variant: "system",
-    src: "/elon.png",
-    content: "Hello, my name is Elon Musk. I am the founder and CEO of Tesla, SpaceX and many more companies."
-  },
-  {
-    variant: "user",
-    content: "Hello Elon, how are you?"
-  },
-  {
-    variant: "system",
-    src: "/elon.png",
-    content: "Hello, my name is Elon Musk. I am the founder and CEO of Tesla, SpaceX and many more companies."
-  },
-  {
-    variant: "user",
-    content: "Hello Elon, how are you?"
-  },
-  {
-    variant: "system",
-    src: "/elon.png",
-    content: "Hello, my name is Elon Musk. I am the founder and CEO of Tesla, SpaceX and many more companies."
-  },
-  {
-    variant: "user",
-    content: "Hello Elon, how are you?"
-  },
-  {
-    variant: "system",
-    src: "/elon.png",
-    content: "Hello, my name is Elon Musk. I am the founder and CEO of Tesla, SpaceX and many more companies."
-  },
-  {
-    variant: "user",
-    content: "Hello Elon, how are you?"
-  },
-]
+interface ChatMessagesProps {
+  messages: ChatMessageProps[];
+  src: string;
+  isLoading: boolean;
+}
 
-export const ChatMessages = () => {
+export const ChatMessages = ({
+  messages = [],
+  src,
+  isLoading
+}: ChatMessagesProps) => {
   return (
     <div className="flex-1 overflow-y-auto pr-4">
       {messages.map((message) => (
         <ChatMessage
           key={message.content}
-          src={message.src}
+          src={src}
           content={message.content}
-          variant={message.variant}
+          role={message.role}
         />
       ))}
+      {isLoading && (
+        <ChatMessage
+          role="system"
+          isLoading
+        />
+      )}
     </div>
   );
 };

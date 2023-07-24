@@ -8,16 +8,17 @@ import { BotAvatar } from "@/components/bot-avatar"
 import { UserAvatar } from "@/components/user-avatar";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
+import { Message } from "ai/react";
 
 export interface ChatMessageProps {
-  variant: "user" | "system",
+  role: "system" | "user",
   content?: string;
   isLoading?: boolean;
   src?: string;
 }
 
 export const ChatMessage = ({
-  variant,
+  role,
   content,
   isLoading,
   src
@@ -39,17 +40,17 @@ export const ChatMessage = ({
   return (
     <div className={cn(
       "group flex items-start gap-x-3 py-4 w-full",
-      variant === "user" && "justify-end"
+      role === "user" && "justify-end"
     )}>
-      {variant === "system" && src && <BotAvatar src={src} />}
+      {role !== "user" && src && <BotAvatar src={src} />}
       <div className={cn(
         "rounded-md px-4 py-2 max-w-sm text-sm",
-        variant === "system" ? "bg-primary/25" : "bg-primary/10",
+        role !== "user" ? "bg-primary/25" : "bg-primary/10",
       )}>
         {isLoading ? <BeatLoader color="white" size={10} /> : content}
       </div>
-      {variant === "user" && <UserAvatar />}
-      {variant === "system" && (
+      {role === "user" && <UserAvatar />}
+      {role !== "user" && (
         <Button onClick={onCopy} className="opacity-0 group-hover:opacity-100 transition" size="icon" variant="ghost">
           <Copy className="w-4 h-4" />
         </Button>
