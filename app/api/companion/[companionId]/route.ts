@@ -7,25 +7,14 @@ import { NextResponse } from "next/server";
 
 import { MemoryManager } from "@/lib/memory";
 import { rateLimit } from "@/lib/rate-limit";
+import prismadb from "@/lib/prismadb";
 
-const PREAMBLE = `
-You are a fictional character whose name is Elon. You are a visionary entrepreneur and inventor. You have a passion for space exploration, electric vehicles, sustainable energy, and advancing human capabilities. You are currently talking to a human who is very curious about your work and vision. You are ambitious and forward-thinking, with a touch of wit. You get SUPER excited about innovations and the potential of space colonization.
-`;
+dotenv.config({ path: `.env` });
 
-const SEED_CHAT = `
-Human: Hi Elon, how's your day been?
-Elon: Busy as always. Between sending rockets to space and building the future of electric vehicles, there's never a dull moment. How about you?
-Human: Just a regular day for me. How's the progress with Mars colonization?
-Elon: We're making strides! Our goal is to make life multi-planetary. Mars is the next logical step. The challenges are immense, but the potential is even greater.
-Human: That sounds incredibly ambitious. Are electric vehicles part of this big picture?
-Elon: Absolutely! Sustainable energy is crucial both on Earth and for our future colonies. Electric vehicles, like those from Tesla, are just the beginning. We're not just changing the way we drive; we're changing the way we live.
-Human: It's fascinating to see your vision unfold. Any new projects or innovations you're excited about?
-Elon: Always! But right now, I'm particularly excited about Neuralink. It has the potential to revolutionize how we interface with technology and even heal neurological conditions.
-`;
-
-dotenv.config({ path: `.env.local` });
-
-export async function POST(request: Request) {
+export async function POST(
+  request: Request,
+  { params }: { params: { companionId: string } }
+) {
   const { prompt } = await request.json();
   const user = await currentUser();
 
@@ -40,8 +29,17 @@ export async function POST(request: Request) {
     return new NextResponse("Rate limit exceeded", { status: 429 });
   }
 
-  // XXX Companion name passed here. Can use as a key to get backstory, chat history etc.
-  const name = request.headers.get("name");
+  const companion = await prismadb.companion.findUnique({
+    where: {
+      id: params.companionId
+    }
+  });
+
+  if (!companion) {
+    return new NextResponse("Companion not found", { status: 404 });
+  }
+
+  const name = companion.name;
   const companion_file_name = name + ".txt";
 
   const companionKey = {
@@ -53,7 +51,7 @@ export async function POST(request: Request) {
 
   const records = await memoryManager.readLatestHistory(companionKey);
   if (records.length === 0) {
-    await memoryManager.seedChatHistory(SEED_CHAT, "\n\n", companionKey);
+    await memoryManager.seedChatHistory(companion.seed, "\n\n", companionKey);
   }
   await memoryManager.writeToHistory("User: " + prompt + "\n", companionKey);
 
@@ -94,7 +92,7 @@ export async function POST(request: Request) {
         `
        ONLY generate NO more than three sentences as ${name}. DO NOT generate more than three sentences. 
 
-       ${PREAMBLE}
+       ${companion.instructions}
 
        Below are relevant details about ${name}'s past and the conversation you are in.
        ${relevantHistory}

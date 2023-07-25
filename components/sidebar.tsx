@@ -23,9 +23,9 @@ export const Sidebar = () => {
   const pathname = usePathname();
 
   return (
-    <div className="space-y-4 flex flex-col h-full text-primary">
+    <div className="space-y-4 flex flex-col h-full text-primary bg-secondary">
       <div className="p-3 flex-1 flex justify-center">
-        <div className="space-y-1">
+        <div className="space-y-2">
           {routes.map((route) => (
             <Link
               key={route.href}

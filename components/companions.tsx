@@ -1,72 +1,41 @@
-import { MessagesSquare } from "lucide-react"
 import Image from "next/image"
-
-import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import Link from "next/link"
+import { Companion } from "@prisma/client"
 
-const items = [
-  {
-    name: "Elon Musk",
-    description: "CEO of Tesla & SpaceX",
-    image: "/elon.png",
-  },
-  {
-    name: "Steve Jobs",
-    description: "Founder of Apple",
-    image: "/steve.png",
-  },
-  {
-    name: "Joe Biden",
-    description: "President of the USA",
-    image: "/joe.png",
-  },
-  {
-    name: "Mark Zuckerberg",
-    description: "Founder & CEO of Meta",
-    image: "/mark.png",
-  },
-  {
-    name: "Albert Einstein",
-    description: "Famous Mathematician",
-    image: "/albert.png",
-  },
-  {
-    name: "Jeff Bezos",
-    description: "Founder & CEO of Amazon",
-    image: "/jeff.png",
-  },
-  {
-    name: "Oprah Winfrey",
-    description: "Famous American Talk Show Host",
-    image: "/oprah.png",
-  },
-  {
-    name: "Stephen Hawking",
-    description: "Famous Theoretical Physicist",
-    image: "/stephen.png",
-  },
-  {
-    name: "Lady Gaga",
-    description: "Famous Singer-Songwriter",
-    image: "/lady.png",
-  },
-  {
-    name: "Eminem",
-    description: "Famous Singer-Songwriter",
-    image: "/eminem.png",
-  },
-]
+import { Card, CardHeader } from "@/components/ui/card"
 
-export const Companions = () => {
+interface CompanionsProps {
+  data: Companion[];
+}
+
+export const Companions = ({
+  data
+}: CompanionsProps) => {
+  if (data.length === 0) {
+    return (
+      <div className="h-full w-full flex flex-col items-center justify-center space-y-4">
+        <div className="relative w-60 h-60">
+          <Image
+            fill
+            className="grayscale"
+            src="/empty.png"
+            alt="Empty"
+          />
+        </div>
+        <p className="text-sm text-muted-foreground">No companions yet.</p>
+      </div>
+    )
+  }
+
   return (
     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2 pb-10">
-      {items.map((item) => (
+      {data.map((item) => (
         <Card key={item.name} className="bg-primary/10 rounded-xl cursor-pointer hover:opacity-75 transition border-0">
-          <Link href="/chat/123">
+          <Link href={`/chat/${item.id}`}>
             <CardHeader className="flex items-center justify-center text-center text-primary/75">
               <div className="relative w-32 h-32">
                 <Image
-                  src={item.image}
+                  src={item.src}
                   fill
                   className="rounded-xl object-cover"
                   alt="Character"
@@ -79,15 +48,6 @@ export const Companions = () => {
                 {item.description}
               </p>
             </CardHeader>
-            <CardFooter className="flex justify-between items-center text-xs text-muted-foreground">
-              <p className="italic">
-                @antonio
-              </p>
-              <div className="flex items-center gap-x-1">
-                <MessagesSquare className="w-3 h-3" />
-                5.2M
-              </div>
-            </CardFooter>
           </Link>
         </Card>
       ))}
