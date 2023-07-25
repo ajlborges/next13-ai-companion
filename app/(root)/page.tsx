@@ -24,7 +24,11 @@ const RootPage = async ({
       createdAt: "desc"
     },
     include: {
-      messages: true,
+      _count: {
+        select: {
+          messages: true,
+        }
+      }
     },
   });
 

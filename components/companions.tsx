@@ -1,13 +1,15 @@
 import Image from "next/image"
 import Link from "next/link"
-import { Companion, Message } from "@prisma/client"
+import { Companion } from "@prisma/client"
 import { MessagesSquare } from "lucide-react";
 
 import { Card, CardFooter, CardHeader } from "@/components/ui/card"
 
 interface CompanionsProps {
   data: (Companion & {
-    messages: Message[],
+    _count: {
+      messages: number
+    },
   })[];
 }
 
@@ -55,7 +57,7 @@ export const Companions = ({
               <p className="lowercase">@{item.userName}</p>
               <div className="flex items-center">
                 <MessagesSquare className="w-3 h-3 mr-1" />
-                {item.messages.length}
+                {item._count.messages}
               </div>
             </CardFooter>
           </Link>
