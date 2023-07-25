@@ -10,13 +10,14 @@ import { BotAvatar } from "@/components/bot-avatar";
 interface ChatHeaderProps {
   companion: Companion & {
     messages: Message[];
+    _count: {
+      messages: number;
+    };
   };
-  messagesCount: number;
 };
 
 export const ChatHeader = ({
   companion,
-  messagesCount = 0,
 }: ChatHeaderProps) => {
   const router = useRouter();
   
@@ -31,7 +32,7 @@ export const ChatHeader = ({
           <p className="font-bold">{companion.name}</p>
           <div className="flex items-center text-xs text-muted-foreground">
             <MessagesSquare className="w-3 h-3 mr-1" />
-            {messagesCount}
+            {companion._count.messages}
           </div>
         </div>
         <p className="text-xs text-muted-foreground">

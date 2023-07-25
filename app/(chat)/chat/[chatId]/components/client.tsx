@@ -13,13 +13,14 @@ import { ChatMessageProps } from "@/components/chat-message";
 interface ChatClientProps {
   companion: Companion & {
     messages: Message[];
+    _count: {
+      messages: number;
+    }
   };
-  messagesCount: number;
 };
 
 export const ChatClient = ({
   companion,
-  messagesCount = 0,
 }: ChatClientProps) => {
   const router = useRouter();
   const [messages, setMessages] = useState<ChatMessageProps[]>(companion.messages);
@@ -58,7 +59,7 @@ export const ChatClient = ({
 
   return (
     <div className="flex flex-col h-full p-4 space-y-2">
-      <ChatHeader messagesCount={messagesCount} companion={companion} />
+      <ChatHeader companion={companion} />
       <ChatMessages 
         companion={companion}
         isLoading={isLoading}
