@@ -1,9 +1,10 @@
+import Link from "next/link";
 import { UserButton } from "@clerk/nextjs";
 import { Poppins } from "next/font/google";
 
 import { cn } from "@/lib/utils";
 import { MobileSidebar } from "@/components/mobile-sidebar";
-import Link from "next/link";
+import { ModeToggle } from "@/components/mode-toggle";
 
 const font = Poppins({ weight: "600", subsets: ["latin"] });
 
@@ -18,7 +19,8 @@ export const Navbar = async () => {
           </h1>
         </Link>
       </div>
-      <div className="flex">
+      <div className="flex items-center gap-x-3">
+        <ModeToggle />
         <UserButton afterSignOutUrl="/" />
       </div>
     </div>

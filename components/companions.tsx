@@ -1,11 +1,14 @@
 import Image from "next/image"
 import Link from "next/link"
-import { Companion } from "@prisma/client"
+import { Companion, Message } from "@prisma/client"
+import { MessagesSquare } from "lucide-react";
 
-import { Card, CardHeader } from "@/components/ui/card"
+import { Card, CardFooter, CardHeader } from "@/components/ui/card"
 
 interface CompanionsProps {
-  data: Companion[];
+  data: (Companion & {
+    messages: Message[],
+  })[];
 }
 
 export const Companions = ({
@@ -13,7 +16,7 @@ export const Companions = ({
 }: CompanionsProps) => {
   if (data.length === 0) {
     return (
-      <div className="h-full w-full flex flex-col items-center justify-center space-y-4">
+      <div className="pt-10 flex flex-col items-center justify-center space-y-3">
         <div className="relative w-60 h-60">
           <Image
             fill
@@ -22,7 +25,7 @@ export const Companions = ({
             alt="Empty"
           />
         </div>
-        <p className="text-sm text-muted-foreground">No companions yet.</p>
+        <p className="text-sm text-muted-foreground">No companions found.</p>
       </div>
     )
   }
@@ -32,7 +35,7 @@ export const Companions = ({
       {data.map((item) => (
         <Card key={item.name} className="bg-primary/10 rounded-xl cursor-pointer hover:opacity-75 transition border-0">
           <Link href={`/chat/${item.id}`}>
-            <CardHeader className="flex items-center justify-center text-center text-primary/75">
+            <CardHeader className="flex items-center justify-center text-center text-muted-foreground">
               <div className="relative w-32 h-32">
                 <Image
                   src={item.src}
@@ -48,6 +51,13 @@ export const Companions = ({
                 {item.description}
               </p>
             </CardHeader>
+            <CardFooter className="flex items-center justify-between text-xs text-muted-foreground">
+              <p className="lowercase">@{item.userName}</p>
+              <div className="flex items-center">
+                <MessagesSquare className="w-3 h-3 mr-1" />
+                {item.messages.length}
+              </div>
+            </CardFooter>
           </Link>
         </Card>
       ))}

@@ -9,5 +9,5 @@ const ChatLayout = ({
     </div>
   );
 }
- 
+
 export default ChatLayout;

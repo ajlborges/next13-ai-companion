@@ -31,8 +31,8 @@ export const Sidebar = () => {
               key={route.href}
               href={route.href}
               className={cn(
-                "text-primary text-xs group flex p-3 w-full justify-start font-medium cursor-pointer hover:text-primary hover:bg-primary/10 rounded-lg transition",
-                pathname === route.href && "bg-primary/10",
+                "text-muted-foreground text-xs group flex p-3 w-full justify-start font-medium cursor-pointer hover:text-primary hover:bg-primary/10 rounded-lg transition",
+                pathname === route.href && "bg-primary/10 text-primary",
               )}
             >
               <div className="flex flex-col gap-y-2 items-center flex-1">

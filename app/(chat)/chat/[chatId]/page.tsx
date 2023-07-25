@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import { auth, redirectToSignIn } from "@clerk/nextjs";
 
 import prismadb from "@/lib/prismadb";
 
@@ -13,18 +14,41 @@ interface ChatIdPageProps {
 const ChatIdPage = async ({
   params
 }: ChatIdPageProps) => {
+  const { userId } = auth();
+
+  if (!userId) {
+    return redirectToSignIn();
+  }
+
   const companion = await prismadb.companion.findUnique({
     where: {
       id: params.chatId
+    },
+    include: {
+      messages: {
+        orderBy: {
+          createdAt: "asc"
+        },
+        where: {
+          userId,
+        },
+      }
     }
   });
 
+
   if (!companion) {
-    redirect("/");
+    return redirect("/");
   }
 
+  const messagesCount = await prismadb.message.count({
+    where: {
+      companionId: companion.id
+    }
+  })
+
   return (
-    <ChatClient companion={companion} />
+    <ChatClient messagesCount={messagesCount} companion={companion} />
   );
 }
  

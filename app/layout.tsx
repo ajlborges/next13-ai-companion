@@ -24,7 +24,7 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en" suppressHydrationWarning>
         <body className={cn("bg-secondary", inter.className)}>
-          <ThemeProvider attribute="class" forcedTheme="dark">
+          <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
             {children}
             <Toaster />
           </ThemeProvider>

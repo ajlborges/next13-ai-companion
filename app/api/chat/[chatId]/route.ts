@@ -13,7 +13,7 @@ dotenv.config({ path: `.env` });
 
 export async function POST(
   request: Request,
-  { params }: { params: { companionId: string } }
+  { params }: { params: { chatId: string } }
 ) {
   const { prompt } = await request.json();
   const user = await currentUser();
@@ -29,9 +29,18 @@ export async function POST(
     return new NextResponse("Rate limit exceeded", { status: 429 });
   }
 
-  const companion = await prismadb.companion.findUnique({
+  const companion = await prismadb.companion.update({
     where: {
-      id: params.companionId
+      id: params.chatId
+    },
+    data: {
+      messages: {
+        create: {
+          content: prompt,
+          role: "user",
+          userId: user.id,
+        },
+      },
     }
   });
 
@@ -115,6 +124,21 @@ export async function POST(
   s.push(null);
   if (response !== undefined && response.length > 1) {
     memoryManager.writeToHistory("" + response.trim(), companionKey);
+
+    await prismadb.companion.update({
+      where: {
+        id: params.chatId
+      },
+      data: {
+        messages: {
+          create: {
+            content: response.trim(),
+            role: "system",
+            userId: user.id,
+          },
+        },
+      }
+    });
   }
 
   return new StreamingTextResponse(s);
