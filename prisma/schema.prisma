@@ -52,7 +52,7 @@ model Message {
   companionId String
   userId      String
 
-  companion   Companion @relation(fields: [companionId], references: [id])
+  companion   Companion @relation(fields: [companionId], references: [id], onDelete: Cascade)
   
   @@index([companionId])
 }
