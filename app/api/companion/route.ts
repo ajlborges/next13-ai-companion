@@ -39,7 +39,7 @@ export async function POST(req: Request) {
 
     return NextResponse.json(companion);
   } catch (error) {
-    console.log("[CREATE_ERROR]", error);
+    console.log("[COMPANION_POST]", error);
     return new NextResponse("Internal Error", { status: 500 });
   }
 };

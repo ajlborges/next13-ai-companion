@@ -1,7 +1,7 @@
 "use client";
 
 import axios from "axios";
-import { ChevronLeft, MessagesSquare, MoreVertical, Trash } from "lucide-react";
+import { ChevronLeft, Edit, MessagesSquare, MoreVertical, Trash } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Companion, Message } from "@prisma/client";
 import { useUser } from "@clerk/nextjs";
@@ -34,7 +34,7 @@ export const ChatHeader = ({
 
   const onDelete = async () => {
     try {
-      await axios.delete(`/api/chat/${companion.id}`);
+      await axios.delete(`/api/companion/${companion.id}`);
       toast({
         description: "Success."
       });
@@ -76,6 +76,10 @@ export const ChatHeader = ({
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
+            <DropdownMenuItem onClick={() => router.push(`/companion/${companion.id}`)}>
+              <Edit className="w-4 h-4 mr-2" />
+              Edit
+            </DropdownMenuItem>
             <DropdownMenuItem onClick={onDelete}>
               <Trash className="w-4 h-4 mr-2" />
               Delete

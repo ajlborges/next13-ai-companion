@@ -85,7 +85,7 @@ export async function POST(
     // Call Replicate for inference
     const model = new Replicate({
       model:
-        "a16z-infra/llama13b-v2-chat:df7690f1994d94e96ad9d568eac121aecf50684a0b0963b25a41cc40061269e5",
+        "a16z-infra/llama-2-13b-chat:df7690f1994d94e96ad9d568eac121aecf50684a0b0963b25a41cc40061269e5",
       input: {
         max_length: 2048,
       },
@@ -100,7 +100,7 @@ export async function POST(
       await model
         .call(
           `
-        ONLY generate NO more than three sentences as ${name}. DO NOT generate more than three sentences. 
+        ONLY generate plain sentences without prefix of who is speaking. DO NOT use ${name}: prefix. 
 
         ${companion.instructions}
 
@@ -144,31 +144,6 @@ export async function POST(
 
     return new StreamingTextResponse(s);
   } catch (error) {
-    return new NextResponse("Internal Error", { status: 500 });
-  }
-};
-
-export async function DELETE(
-  request: Request,
-  { params }: { params: { chatId: string } }
-) {
-  try {
-    const { userId } = auth();
-
-    if (!userId) {
-      return new NextResponse("Unauthorized", { status: 401 });
-    }
-
-    const companion = await prismadb.companion.delete({
-      where: {
-        userId,
-        id: params.chatId
-      }
-    });
-
-    return NextResponse.json(companion);
-  } catch (error) {
-    console.log("[CHAT_DELETE]", error);
     return new NextResponse("Internal Error", { status: 500 });
   }
 };

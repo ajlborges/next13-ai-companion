@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { Wand2 } from "lucide-react";
-import { Category } from "@prisma/client";
+import { Category, Companion } from "@prisma/client";
 
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
@@ -40,11 +40,11 @@ const formSchema = z.object({
   description: z.string().min(1, {
     message: "Description is required.",
   }),
-  instructions: z.string().min(300, {
-    message: "Instructions require at least 300 characters."
+  instructions: z.string().min(200, {
+    message: "Instructions require at least 200 characters."
   }),
-  seed: z.string().min(500, {
-    message: "Seed requires at least 500 characters."
+  seed: z.string().min(200, {
+    message: "Seed requires at least 200 characters."
   }),
   src: z.string().min(1, {
     message: "Image is required."
@@ -54,33 +54,39 @@ const formSchema = z.object({
   }),
 });
 
-interface CreateClientProps {
+interface CompanionFormProps {
   categories: Category[];
+  initialData: Companion | null;
 };
 
-export const CreateClient = ({
-  categories
-}: CreateClientProps) => {
+export const CompanionForm = ({
+  categories,
+  initialData
+}: CompanionFormProps) => {
   const { toast } = useToast();
   const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
+    defaultValues: initialData || {
       name: "",
       description: "",
       instructions: "",
       seed: "",
       src: "",
       categoryId: undefined,
-    }
+    },
   });
 
   const isLoading = form.formState.isSubmitting;
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      await axios.post("/api/create", values);
+      if (initialData) {
+        await axios.patch(`/api/companion/${initialData.id}`, values);
+      } else {
+        await axios.post("/api/companion", values);
+      }
 
       toast({
         description: "Success.",
@@ -213,7 +219,7 @@ export const CreateClient = ({
               <FormItem>
                 <FormLabel>Example Conversation</FormLabel>
                 <FormControl>
-                  <Textarea disabled={isLoading} rows={20} className="bg-background resize-none" placeholder={SEED_CHAT} {...field} />
+                  <Textarea disabled={isLoading} rows={7} className="bg-background resize-none" placeholder={SEED_CHAT} {...field} />
                 </FormControl>
                 <FormDescription>
                   Write couple of examples of a human chatting with your AI companion, write expected answers.
@@ -224,7 +230,7 @@ export const CreateClient = ({
           />
           <div className="w-full flex justify-center">
             <Button size="lg" disabled={isLoading}>
-              Create Your Companion
+              {initialData ? "Edit your companion" : "Create your companion"}
               <Wand2 className="w-4 h-4 ml-2" />
             </Button>
           </div>
