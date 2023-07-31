@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import { auth, redirectToSignIn } from "@clerk/nextjs";
 
 import prismadb from "@/lib/prismadb";
 import { checkSubscription } from "@/lib/subscription";
@@ -14,6 +15,12 @@ interface CompanionIdPageProps {
 const CompanionIdPage = async ({
   params
 }: CompanionIdPageProps) => {
+  const { userId } = auth();
+
+  if (!userId) {
+    return redirectToSignIn();
+  }
+
   const validSubscription = await checkSubscription();
 
   if (!validSubscription) {
@@ -22,7 +29,8 @@ const CompanionIdPage = async ({
 
   const companion = await prismadb.companion.findUnique({
     where: {
-      id: params.companionId
+      id: params.companionId,
+      userId,
     }
   });
 
