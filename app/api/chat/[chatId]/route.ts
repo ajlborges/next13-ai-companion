@@ -100,15 +100,15 @@ export async function POST(
       await model
         .call(
           `
-        ONLY generate plain sentences without prefix of who is speaking. DO NOT use ${name}: prefix. 
+        ONLY generate plain sentences without prefix of who is speaking. DO NOT use ${companion.name}: prefix. 
 
         ${companion.instructions}
 
-        Below are relevant details about ${name}'s past and the conversation you are in.
+        Below are relevant details about ${companion.name}'s past and the conversation you are in.
         ${relevantHistory}
 
 
-        ${recentChatHistory}\n${name}:`
+        ${recentChatHistory}\n${companion.name}:`
         )
         .catch(console.error)
     );
